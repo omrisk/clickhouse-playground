@@ -4,6 +4,8 @@
 
 [Clickhouse](https://clickhouse.tech/) is a big data warehouse used by Yandex to analyze click stream data.
 
+Credit to Mark Litwintschik, [whose blog post about benchmarking clickhouse](https://tech.marksblogg.com/billion-nyc-taxi-clickhouse.html) was very helpful and was used for reference.
+
 We examined it at Dynamic Yield to see if it could be a potential candidate to help us address issues in the analytics space.
 
 The POC itself was conducted on an internal AWS account, this repo is to allow:
@@ -19,8 +21,8 @@ GP3 disks were used as ephemeral disks with 2 TBs of storage.
 
 ## Topology
 
-* 3 Clickhouse Master nodes
-* 3 zookeeper nodes (deployed on the clickhouse physical nodes)
+- 3 Clickhouse Master nodes
+- 3 zookeeper nodes (deployed on the clickhouse physical nodes)
 
 ## Setup on AWS account
 
@@ -31,7 +33,7 @@ A guide to the manual installation steps can be found [here](./guides/ec2-instal
 
 ### Caveats
 
-* To simplify the deployment [zookeeper](https://zookeeper.apache.org/) nodes were deployed on the same nodes as the clickhouse nodes.
+- To simplify the deployment [zookeeper](https://zookeeper.apache.org/) nodes were deployed on the same nodes as the clickhouse nodes.
 
 ## Local Docker environment
 
@@ -58,7 +60,7 @@ You can now begin work with the clickhouse cluster.
 
 ### Setting up a Sample data set
 
-A normalized data set is available on the  `[New York City government site](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)`.
+A normalized data set is available on the `[New York City government site](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)`.
 Run the following steps script to setup the needed clickhouse tables, download and normalize the data set.
 
 ```shell
@@ -94,7 +96,25 @@ See the [schema file](queries/setup/trips_import.sql) for reference to the file/
 
 ## Benchmarks
 
-* The [clickhouse-benchmark](https://clickhouse.tech/docs/en/operations/utilities/clickhouse-benchmark/) tool was used to submit queries concurrently.
-* [Glances](https://nicolargo.github.io/glances/) was used to sample CPU and memory usage.
+- The [clickhouse-benchmark](https://clickhouse.tech/docs/en/operations/utilities/clickhouse-benchmark/) tool was used to submit queries concurrently.
+- [Glances](https://nicolargo.github.io/glances/) was used to sample CPU and memory usage.
 
 Sample Queries can be found in the [queries directory](./queries/).
+
+## Contribution
+
+Use [Pre-commit](https://pre-commit.com/) to ensure we're linted and well formatted.
+
+- [Pre-commit](https://pre-commit.com/) — Managing and maintaining multi-language pre-commit hooks as defined in [`.pre-commit-config.yaml`](.pre-commit-config.yaml)
+
+  - Leverage `pre-commit` to [install the Git hooks](https://pre-commit.com/#pre-commit-install)
+
+    ```shell
+    pre-commit install --install-hooks -t pre-commit -t commit-msg
+    ```
+
+  - You can check which files `pre-commit` works on by running
+
+    ```shell
+    pre-commit run list-files --hook-stage manual --verbose
+    ```
