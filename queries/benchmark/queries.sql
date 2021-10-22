@@ -8,4 +8,3 @@ ORDER BY passenger_count
 -- Average Distance of taxi ride --
 SELECT avg(trip_distance)
 FROM test.trips_dist
-

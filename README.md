@@ -59,13 +59,7 @@ You can now begin work with the clickhouse cluster.
 ### Setting up a Sample data set
 
 A normalized data set is available on the  `[New York City government site](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)`.
-Run the following steps script to download and normalize the data set.
-
-```shell
-./scripts/prepare-datasets.sh
-```
-
-You can setup the needed tables by running:
+Run the following steps script to setup the needed clickhouse tables, download and normalize the data set.
 
 ```shell
 docker exec -it client /bin/bash

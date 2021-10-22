@@ -67,5 +67,5 @@ insert into test.trips_dist select
     `tolls_amount`          AS `tolls_amount`,
     `improvement_surcharge` AS `improvement_surcharge`,
     `total_amount`          AS `total_amount`,
-    `congestion_surcharge`  AS `congestion_surcharge`     
+    `congestion_surcharge`  AS `congestion_surcharge`
     FROM test.trips_import
