@@ -1,0 +1,7 @@
+<yandex>
+    <macros>
+        <replica from_env="REPLICA"></replica>
+        <shard from_env="SHARD"></shard>
+        <layer from_env="LAYER"></layer>
+    </macros>
+</yandex>

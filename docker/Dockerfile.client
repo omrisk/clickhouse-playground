@@ -1,0 +1,6 @@
+FROM yandex/clickhouse-client:21.6
+
+RUN apt-get update && \
+    apt-get install -y python wget && \
+    apt-get clean && \
+    rm -rf /var/cache/apt/lists

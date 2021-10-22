@@ -1,0 +1,2 @@
+# To prevent commiting any benchmark results to git
+*.json

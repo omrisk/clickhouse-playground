@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "(^|/)\\.pre-commit-config\\.yaml$"
+      ],
+      "matchStrings": [
+        "^minimum_pre_commit_version: (?<currentValue>.*?)\\n"
+      ],
+      "depNameTemplate": "pre-commit",
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "fileMatch": [
+        "(^|/)\\.pre-commit-config\\.yaml$"
+      ],
+      "matchStrings": [
+        "\\n\\s*entry: (?<depName>[^:]+):(?<currentValue>\\S+)"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "docker": {
+    "enabled": false
+  },
+  "docker-compose": {
+    "enabled": false
+  }
+}

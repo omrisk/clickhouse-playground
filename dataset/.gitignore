@@ -1,0 +1,3 @@
+# To prevent commiting any datasets to git
+*
+!.gitignore

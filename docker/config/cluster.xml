@@ -1,0 +1,47 @@
+<yandex>
+    <listen_host>0.0.0.0</listen_host>
+    <remote_servers>
+        <cluster_1>            <!-- cluster name -->
+            <shard>                <!-- shard 1 -->
+                <weight>1</weight>                <!-- weight assigned to the shard here we assign equal weights to all shards -->
+                <internal_replication>true</internal_replication>                <!-- true flag will denote that replication will be taken care by Zookeeper(More Robust) or else distributed table sends INSERTS to all replicas by this there will be no error check if any one insert fails -->
+                <replica>                    <!-- replica 1 -->
+                    <host>node1</host>                    <!-- host name where the replica 1 resides -->
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>                <!-- shard 2 -->
+                <weight>1</weight>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>node2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>                <!-- shard 3 -->
+                <weight>1</weight>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>node3</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </cluster_1>
+    </remote_servers>
+    <zookeeper-servers>        <!-- co-ordinates of zookeeper in cluster -->
+        <node index="1">
+            <host>zookeeper</host>
+            <port>2181</port>            <!-- ports from which it can access from -->
+        </node>
+    </zookeeper-servers>
+    <networks>
+        <ip>::/0</ip>
+    </networks>
+    <compression>
+        <case>
+            <min_part_size>10000000000</min_part_size>
+            <min_part_size_ratio>0.01</min_part_size_ratio>
+            <method>lz4</method>
+        </case>
+    </compression>
+</yandex>

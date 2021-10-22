@@ -1,0 +1,71 @@
+version: '3.2'
+services:
+  node1:
+    container_name: node1
+    hostname: node1
+    image: yandex/clickhouse-server:21.6
+    volumes:
+      - ./docker/config/:/etc/clickhouse-server/config.d/
+      - ch-node1:/var/lib/clickhouse
+    environment:
+      - REPLICA=node1
+      - SHARD=01
+      - LAYER=01
+    ports:
+      - 9011:9000
+  node2:
+    container_name: node2
+    hostname: node2
+    image: yandex/clickhouse-server:21.6
+    volumes:
+      - ./docker/config/:/etc/clickhouse-server/config.d/
+      - ch-node2:/var/lib/clickhouse
+    environment:
+      - REPLICA=node2
+      - SHARD=02
+      - LAYER=02
+    ports:
+      - 9012:9000
+  node3:
+    container_name: node3
+    hostname: node3
+    image: yandex/clickhouse-server:21.6
+    volumes:
+      - ./docker/config/:/etc/clickhouse-server/config.d/
+      - ch-node3:/var/lib/clickhouse
+    environment:
+      - REPLICA=node3
+      - SHARD=03
+      - LAYER=03
+    ports:
+      - 9013:9000
+
+  zookeeper:
+    container_name: zookeeper
+    hostname: zookeeper
+    image: bitnami/zookeeper:3.6.3
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_SERVER_ID=1
+      - ZOO_SERVERS=zookeeper:2888:3888
+
+  ch_client:
+    container_name: client
+    hostname: client
+    build:
+      context: docker
+      dockerfile: Dockerfile.client
+    entrypoint:
+      - /bin/sleep
+    command:
+      - infinity
+    volumes:
+      - ./queries/:/queries
+      - ./dataset:/dataset
+      - ./scripts:/scripts
+
+volumes:
+  ch-node1:
+  ch-node2:
+  ch-node3:
+  zookeeper:
