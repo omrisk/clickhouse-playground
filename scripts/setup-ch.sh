@@ -1,6 +1,7 @@
 #!/bin/bash
 
-SCRIPT_LOCATION=$(dirname "$0")
+SCRIPT=$(realpath "$0")
+SCRIPT_LOCATION=$(dirname "$SCRIPT")
 
 clickhouse-client --host node1 --queries-file=/queries/setup/trips_import.sql
 
@@ -18,7 +19,7 @@ if [[ $COUNT -eq 0 ]]; then
   for filename in $SCRIPT_LOCATION/../dataset/yellow_tripdata*.csv; do
     echo "Inserting data from CSV to clickhouse table (test.trips_import)"
     # Clickhouse has issues handling the first row, so we skip it
-    tail -n +2 "$SCRIPT_LOCATION"/../dataset/"$filename" |
+    tail -n +2 "$filename" |
       python "$SCRIPT_LOCATION"/handle_nulls.py |
       clickhouse-client --host node1 --query="INSERT INTO test.trips_import FORMAT CSV"
   done
