@@ -24,6 +24,6 @@ jobs:
       - name: CODEOWNERS validator
         uses: mszostok/codeowners-validator@v0.6.0
         with:
-          checks: files,duppatterns,syntax,owners
+          checks: files,duppatterns,syntax
           experimental_checks: notowned
           github_access_token: ${{ secrets.GH_PAT_RO }}
