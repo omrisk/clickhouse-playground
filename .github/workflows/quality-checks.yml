@@ -22,7 +22,7 @@ jobs:
       - name: Pre-commit
         uses: pre-commit/action@v2.0.3
       - name: CODEOWNERS validator
-        uses: mszostok/codeowners-validator@v0.6.0
+        uses: mszostok/codeowners-validator@v0.7.2
         with:
           checks: files,duppatterns,syntax
           experimental_checks: notowned
