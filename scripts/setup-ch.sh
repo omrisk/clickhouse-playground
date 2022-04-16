@@ -20,7 +20,7 @@ if [[ $COUNT -eq 0 ]]; then
     echo "Inserting data from CSV to clickhouse table (test.trips_import)"
     # Clickhouse has issues handling the first row, so we skip it
     tail -n +2 "$filename" |
-      python "$SCRIPT_LOCATION"/handle_nulls.py |
+      python3 "$SCRIPT_LOCATION"/handle_nulls.py |
       clickhouse-client --host node1 --query="INSERT INTO test.trips_import FORMAT CSV"
   done
 

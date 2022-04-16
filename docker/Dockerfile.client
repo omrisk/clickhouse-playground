@@ -1,6 +1,6 @@
 FROM yandex/clickhouse-client:21.6
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y python=3.7 wget=1.19.4 && \
+    apt-get install --no-install-recommends -y python3 wget && \
     apt-get clean && \
     rm -rf /var/cache/apt/lists

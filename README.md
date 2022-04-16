@@ -66,7 +66,7 @@ Run the following steps script to setup the needed clickhouse tables, download a
 ```shell
 docker exec -it client /bin/bash
 
-./scripts/setup-ch.s
+./scripts/setup-ch.sh
 
 ```
 
@@ -99,7 +99,15 @@ See the [schema file](queries/setup/trips_import.sql) for reference to the file/
 - The [clickhouse-benchmark](https://clickhouse.tech/docs/en/operations/utilities/clickhouse-benchmark/) tool was used to submit queries concurrently.
 - [Glances](https://nicolargo.github.io/glances/) was used to sample CPU and memory usage.
 
-Sample Queries can be found in the [queries directory](./queries/).
+Sample Queries can be found in the [queries directory](./queries/) and run easily by connecting to the client docker and running the benchmarks, for example:
+```shell
+# Connect to client container
+docker exec -it client /bin/bash
+
+# Run the query in queries/benchmark/benchmark-query.sql 100 times(i) with a concurrency of 10 (c)
+cat queries/benchmark/benchmark-query.sql | clickhouse-benchmark -h node1 -i 100 -c 10
+```
+
 
 ## Contribution
 
